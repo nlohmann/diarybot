@@ -21,7 +21,7 @@ for x in db.view('_design/%s/_view/lastid' % DB_NAME):
 
 
 #############################################################################
-# 2. get the missing messages from Skype's databse
+# 2. get the missing messages from iMessage's databse
 
 print 'STATUS: Reading new entries from iMessage\'s local database...'
 

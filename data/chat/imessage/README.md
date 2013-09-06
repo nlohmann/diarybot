@@ -12,7 +12,7 @@ No configuration is needed. If you run a late OS X with enabled iMessage, then t
 
 Before the initial pull, execute `reset_db.py` to create the CouchDB data base `diarybot-skype` and to set up required design documents. You can execute this script any time you want to start over. Your original iMessage database will never be touched by this.
 
-Execute `update_db.py` to pull the data from your Skype data base to the CouchDB data base `diarybot-skype`. Note that an initial update may take some time, especially since attachments are also put into the database. After that, only delta updates will be made which usually take less than a second.
+Execute `update_db.py` to pull the data from your iMessage data base to the CouchDB data base `diarybot-skype`. Note that an initial update may take some time, especially since attachments are also put into the database. After that, only delta updates will be made which usually take less than a second.
 
 ### Example output
 
