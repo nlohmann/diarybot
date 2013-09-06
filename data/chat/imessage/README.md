@@ -20,7 +20,7 @@ Execute `update_db.py` to pull the data from your Skype data base to the CouchDB
 	DONE: Created database 'diarybot-imessage'.
 	DONE: Adding design documents from 'design_document.json'.
 
-	$ $ ./update_db.py 
+	$ ./update_db.py 
 	STATUS: Reading new entries from iMessage's local database...
 	DONE: Read 1174 new entries from iMessage's local database.
 	NOTE: Adding entries can be slow, because 33 attachments (52 MB) are added.
