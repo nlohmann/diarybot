@@ -1,0 +1,13 @@
+{
+  "_id": "_design/diarybot-imessage",
+  "language": "python",
+  "views": {
+    "lastid": {
+     "map": "def fun(doc):\n  import iso8601\n  import datetime, time\n\n  yield None, time.mktime(iso8601.parse_date(doc['date']).timetuple())",
+     "reduce": "def fun(keys, values, rr):\n  return max(values)"
+    },
+    "bydate": {
+      "map": "def fun(doc):\n  import iso8601\n  import datetime, time\n\n  yield time.mktime(iso8601.parse_date(doc['date']).timetuple()), doc"
+    }
+  }
+}

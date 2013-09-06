@@ -10,7 +10,7 @@ Diary Bot stores all your data **locally**. It never uploads any information (pa
 
 ## Status
 
-As of now, the Skype chat database is used as first data source. Other sources are already implemented, but the source code needs to be "cleaned up" before releasing. Also an early-beta frontend of the diary exists, which hopefully be relesed soon. Stay tuned!
+As of now, the Skype and iMessage chat database are used as first data sources. Other sources are already implemented, but the source code needs to be "cleaned up" before releasing. Also an early-beta frontend of the diary exists, which hopefully be relesed soon. Stay tuned!
 
 ## Prerequesites
 
