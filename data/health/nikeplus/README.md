@@ -13,7 +13,7 @@ Copy file `config.json.template` to `config.json` and set `username` and `passwo
 		"password": "this_is_a_secret"
     }
 
-The data is then loaded from Nike+ and pushed into the database. Note that we do not use your password for any other purpose. It is transmitted once via a POST call to `secure-nikeplus.nike.com`.
+The data is then loaded from Nike+ and pushed into the database. Note that we do not use your password for any other purpose. It is transmitted once via a POST call to https://secure-nikeplus.nike.com.
 
 ### Usage
 
