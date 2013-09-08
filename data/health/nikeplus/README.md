@@ -2,6 +2,8 @@
 
 ## Nike+ Module
 
+![Nike+](http://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Logo_of_Nike%2BiPod.svg/200px-Logo_of_Nike%2BiPod.svg.png "Nike+")
+
 Copies all your running activities at Nike+ into the database.
 
 ### Configuration

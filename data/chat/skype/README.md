@@ -2,6 +2,8 @@
 
 ## Skype Module
 
+![Skype](http://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Skype_logo.svg/200px-Skype_logo.svg.png "Skype")
+
 Copies all your Skype chats into the database.
 
 ### Configuration
