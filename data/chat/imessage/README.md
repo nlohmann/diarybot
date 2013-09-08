@@ -2,7 +2,7 @@
 
 ## iMessage Module
 
-![iMessages](http://upload.wikimedia.org/wikipedia/commons/2/23/Messages_%28application%29_logo.png "iMessages")
+![iMessages](http://upload.wikimedia.org/wikipedia/commons/2/23/Messages_%28application%29_logo.png)
 
 Copies all your iMessage chats with their attachments into the database.
 

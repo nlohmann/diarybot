@@ -10,7 +10,15 @@ Diary Bot stores all your data **locally**. It never uploads any information (pa
 
 ## Status
 
-As of now, Nike+ running and the Skype and iMessage chat database are used as first data sources. Other sources are already implemented, but the source code needs to be "cleaned up" before releasing. Also an early-beta frontend of the diary exists, which hopefully be relesed soon. Stay tuned!
+As of now, the code for the first data sources is published. Other sources are already implemented, but the source code needs to be "cleaned up" before releasing. Also an early-beta frontend of the diary exists, which hopefully be relesed soon. Stay tuned!
+
+## Modules
+
+| Module        | Category      | Description |
+| ------------- |---------------| ------|
+| ![iMessages](http://upload.wikimedia.org/wikipedia/commons/2/23/Messages_%28application%29_logo.png) | Chat | [iMessages](http://www.apple.com/de/ios/messages/) together with their attachments (from local database) |
+| ![Skype](http://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Skype_logo.svg/200px-Skype_logo.svg.png) | Chat | [Skype](http://www.skype.com) messages (from local database) |
+| ![Nike+](http://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Logo_of_Nike%2BiPod.svg/200px-Logo_of_Nike%2BiPod.svg.png) | Health | activities logged with the [Nike+ running app](http://nikeplus.nike.com/plus/products/gps_app/) (including GPS coordinates) |
 
 ## Prerequesites
 
