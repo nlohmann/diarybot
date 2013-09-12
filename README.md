@@ -19,6 +19,8 @@ As of now, the code for the first data sources is published. Other sources are a
 | ![iMessages](http://upload.wikimedia.org/wikipedia/commons/2/23/Messages_%28application%29_logo.png) | Chat | [iMessages](http://www.apple.com/de/ios/messages/) together with their attachments (from local database) |
 | ![Skype](http://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Skype_logo.svg/200px-Skype_logo.svg.png) | Chat | [Skype](http://www.skype.com) messages (from local database) |
 | ![Nike+](http://upload.wikimedia.org/wikipedia/en/thumb/a/ac/Logo_of_Nike%2BiPod.svg/200px-Logo_of_Nike%2BiPod.svg.png) | Health | activities logged with the [Nike+ running app](http://nikeplus.nike.com/plus/products/gps_app/) (including GPS coordinates) |
+| ![Jawbone Up](http://a4.mzstatic.com/us/r30/Purple/v4/7c/e3/cf/7ce3cff0-3831-9c52-d032-fa24727506fa/mzl.zlmigmfa.175x175-75.jpg)
+ | Health | activities from the [Jawbone Up](https://jawbone.com/up) activity tracker |
 
 ## Prerequesites
 

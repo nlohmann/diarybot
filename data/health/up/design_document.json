@@ -1,0 +1,9 @@
+{
+  "_id": "_design/diarybot-up",
+  "language": "python",
+  "views": {
+    "bydate": {
+      "map": "def fun(doc):\n  if 'time_updated' in doc:\n    yield doc['time_updated'], doc"
+    }
+  }
+}
