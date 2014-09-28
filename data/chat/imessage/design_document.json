@@ -1,13 +1,13 @@
 {
-  "_id": "_design/diarybot-imessage",
-  "language": "python",
-  "views": {
-    "lastid": {
-     "map": "def fun(doc):\n  import iso8601\n  import datetime, time\n\n  yield None, time.mktime(iso8601.parse_date(doc['date']).timetuple())",
-     "reduce": "def fun(keys, values, rr):\n  return max(values)"
-    },
-    "bydate": {
-      "map": "def fun(doc):\n  import iso8601\n  import datetime, time\n\n  yield time.mktime(iso8601.parse_date(doc['date']).timetuple()), doc"
-    }
-  }
+   "_id": "_design/diarybot-imessage",
+   "language": "javascript",
+   "views": {
+       "lastid": {
+           "map": "function(doc) {\n  d = new Date(doc.date).getTime() / 1000;  \n  emit(null, d);\n}\n",
+           "reduce": "function (key, values, rereduce) {\n    // Return the maximum numeric value.\n    var max = -Infinity\n    for(var i = 0; i < values.length; i++)\n        if(typeof values[i] == 'number')\n            max = Math.max(values[i], max)\n    return max\n}"
+       },
+       "bydate": {
+           "map": "function(doc) {\n  d = new Date(doc.date).getTime() / 1000;  \n  emit(d, doc);\n}\n"
+       }
+   }
 }

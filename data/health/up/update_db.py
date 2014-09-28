@@ -53,7 +53,7 @@ for data in all_data:
         response = opener.open(url)
         data['snapshot'] = json.loads(response.read())['data']
 
-print 'DONE: Read %d entries from Jawbone\'s API.' % len(all_data)-1
+print 'DONE: Read %d entries from Jawbone\'s API.' % len(all_data)
 
 #############################################################################
 # 3. store new entries in db (ADJUSTED: should be a bulk update)
