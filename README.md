@@ -27,7 +27,7 @@ As of now, the code for the first data sources is published. Other sources are a
 - [Python](http://www.python.org) is used as main scripting language. Version 2.7.5 or later shoud be OK.
 - [PHP](http://php.net) is used for some other scripts. Any PHP version 5.x should work.
 - [couchdb Python package](https://pypi.python.org/pypi/CouchDB) is used to access CouchDB from Python. Version 0.9 works.
-- [iso6801 Python package](https://pypi.python.org/pypi/iso8601) is used to remain sane while joggling with dates. Version 0.1.4 please.
+- [iso8601 Python package](https://pypi.python.org/pypi/iso8601) is used to remain sane while joggling with dates. Version 0.1.4 please.
 
 ## Installation
 
@@ -36,5 +36,5 @@ As of now, the code for the first data sources is published. Other sources are a
 - Install [PHP](http://php.net).
 - Install the Python packages by executing:
 	- `sudo pip install couchdb`
-	- `sudo pip install iso6801`
+	- `sudo pip install iso8601`
 - [Set up couchpy](http://pythonhosted.org/CouchDB/views.html) as CouchDB view server. The hardest part is usually finding your `local.ini` file. Using OS X, it is usally located in `~/Library/Application Support/CouchDB/etc/couchdb`. Please not that also the location of the `couchpy` executable may differ - it's `/usr/local/bin/couchpy` on my machine.
