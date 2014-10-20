@@ -31,6 +31,12 @@ def create_database(database_name, design_document):
     full_database_name = DATABASE_PREFIX + database_name
     couch = couchdb.Server()
     couch.resource.credentials = (DATABASE_USER, DATABASE_PASS)
-    db = couch.create(full_database_name)
-    logger.debug('created database %s' % full_database_name)
+
+    if full_database_name in couch:
+        db = couch[full_database_name]
+        logger.debug('found database %s' % full_database_name)
+    else:
+        db = couch.create(full_database_name)
+        logger.debug('created database %s' % full_database_name)
+
     db['_design/diarybot'] = json.loads(design_document)
