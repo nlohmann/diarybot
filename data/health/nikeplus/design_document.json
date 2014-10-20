@@ -1,9 +1,0 @@
-{
-	"_id": "_design/diarybot-nikeplus",
-	"language": "python",
-	"views": {
-		"bydate": {
-			"map": "def fun(doc):\n  import iso8601\n  import datetime, time\n\n  yield time.mktime(iso8601.parse_date(doc['activity']['startTimeUtc']).timetuple()), doc"
-		}
-	}
-}

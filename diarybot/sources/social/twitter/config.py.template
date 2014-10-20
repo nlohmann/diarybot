@@ -1,0 +1,17 @@
+# Go to https://apps.twitter.com
+# Sign in with your Twitter account
+# Click "Create New App"
+# Fill in "Name", "Description", and "Website" - the values do not matter
+# Agree to the "Developer Rules of the Road"
+# Click "Create your Twitter application"
+#
+# You need the following values from your app:
+# - Consumer Key (API Key)
+# - Consumer Secret (API Secret)
+# - Access Token
+# - Access Token Secret
+
+CONSUMER_KEY = ""
+CONSUMER_SECRET = ""
+ACCESS_TOKEN = ""
+ACCESS_TOKEN_SECRET = ""

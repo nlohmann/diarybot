@@ -1,9 +1,0 @@
-{
-   "_id": "_design/diarybot-up",
-   "language": "javascript",
-   "views": {
-       "bydate": {
-           "map": "function(doc) {\n  emit(doc.time_updated, doc);\n}\n"
-       }
-   }
-}
