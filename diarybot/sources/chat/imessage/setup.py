@@ -3,7 +3,7 @@ from ....utils.dbbasic import create_database
 
 module_name = 'imessage'
 
-logger("creating database for module %s" % module_name)
+logger.debug("creating database for module %s" % module_name)
 
 design_document = r'''
 {
