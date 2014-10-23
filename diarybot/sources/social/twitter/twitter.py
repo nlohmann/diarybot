@@ -2,9 +2,9 @@ import json
 from diarybot.utils.module import Module
 from diarybot.utils.logger import logger
 from diarybot.utils.dbbasic import store
+from diarybot.config import config
 
 import tweepy
-from config import CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET
 
 
 class Twitter(Module):
@@ -79,8 +79,8 @@ class Twitter(Module):
                 return payload
 
         #authorize twitter, initialize Tweepy
-        auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-        auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
+        auth = tweepy.OAuthHandler(config.get('twitter', 'consumer_key'), config.get('twitter', 'consumer_secret'))
+        auth.set_access_token(config.get('twitter', 'access_token'), config.get('twitter', 'access_token_secret'))
         api = tweepy.API(auth, parser=RawJsonParser())
 
         # get screen name for later access to user timeline

@@ -1,10 +1,9 @@
 import couchdb
 
-from diarybot.dbconfig import DATABASE_PREFIX, DATABASE_USER, DATABASE_PASS
+from diarybot.config import config
 from diarybot.utils.logger import logger
 
 import json
-
 
 def store(db, docs):
     def chunker(seq, size):
@@ -20,17 +19,17 @@ def store(db, docs):
 
 
 def get_database(database_name):
-    full_database_name = DATABASE_PREFIX + database_name
-    couch = couchdb.Server()
-    couch.resource.credentials = (DATABASE_USER, DATABASE_PASS)
+    full_database_name = config.get('couchdb', 'database-prefix') + database_name
+    couch = couchdb.Server(config.get('couchdb', 'database-url'))
+    couch.resource.credentials = (config.get('couchdb', 'database-user'), config.get('couchdb', 'database-password'))
     db = couch[full_database_name]
     logger.debug('opening database %s' % full_database_name)
     return db
 
 def create_database(database_name, design_document):
-    full_database_name = DATABASE_PREFIX + database_name
-    couch = couchdb.Server()
-    couch.resource.credentials = (DATABASE_USER, DATABASE_PASS)
+    full_database_name = config.get('couchdb', 'database-prefix') + database_name
+    couch = couchdb.Server(config.get('couchdb', 'database-url'))
+    couch.resource.credentials = (config.get('couchdb', 'database-user'), config.get('couchdb', 'database-password'))
 
     if full_database_name in couch:
         db = couch[full_database_name]
