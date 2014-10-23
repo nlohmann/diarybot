@@ -1,11 +1,11 @@
 from diarybot.utils.dbbasic import store
 from diarybot.utils.logger import logger
 from diarybot.utils.module import Module
+from diarybot.config import config
 
 import time
 import datetime
 import requests
-from config import ACCESS_TOKEN
 
 
 class Moves(Module):
@@ -45,7 +45,7 @@ class Moves(Module):
 
         endpoint = '/user/profile'
         data = {
-            'access_token': ACCESS_TOKEN
+            'access_token': config.get('moves', 'access_token')
         }
 
         res = self.api_call(endpoint, data)
@@ -70,7 +70,7 @@ class Moves(Module):
 
             endpoint = '/user/storyline/daily/%s' % date
             data = {
-                'access_token': ACCESS_TOKEN,
+                'access_token': config.get('moves', 'access_token'),
                 'trackPoints': 'true'
             }
 

@@ -1,7 +1,7 @@
 venv
 
-diarybot/dbconfig.py
-diarybot/sources/chat/skype/config.py
-diarybot/sources/life/xbox/config.py
-diarybot/sources/location/moves/config.py
-diarybot/sources/social/twitter/config.py
+.idea
+
+*.pyc
+
+diarybot.cfg

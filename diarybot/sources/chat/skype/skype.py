@@ -5,7 +5,7 @@ from datetime import datetime
 from diarybot.utils.dbbasic import store
 from diarybot.utils.logger import logger
 from diarybot.utils.module import Module
-import diarybot.sources.chat.skype.config
+from diarybot.config import config
 
 
 class Skype(Module):
@@ -33,7 +33,7 @@ class Skype(Module):
     def get_docs(last_id):
         logger.debug("reading new entries from Skype's local database")
 
-        db_filename = expanduser("~") + '/Library/Application Support/Skype/' + diarybot.sources.chat.skype.config.SKYPE_USERNAME + '/main.db'
+        db_filename = expanduser("~") + '/Library/Application Support/Skype/' + config.get('skype', 'skype_username') + '/main.db'
         conn = sqlite3.connect(db_filename)
         conn.row_factory = sqlite3.Row
         c = conn.cursor()

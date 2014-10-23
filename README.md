@@ -47,17 +47,15 @@ For all subsequent calls, we expect the virtual environment to be set up and act
 
 ## Setup
 
+Diary Bot reads the file `diarybot.cfg` at startup. A template `diarybot_template.cfg` for this file is part of the distribution. You need to rename this file to `diarybot.cfg` before starting Diary Bot. The rest of this section explains which adjustments you need to make to `diarybot.cfg` to configure Diary Bot to your needs.
+
+
 ### CouchDB
 
-All databases will be prefixed with `diarybot-` which makes it easier for you to clean up if you don't like Diary Bot any more. Please rename `diarybot/dbconfig.py.template` to `diarybot/dbconfig.py`. You may edit that file to adjust the URL to your CouchDB installation (defaults to `http://localhost:5984/`) and a database username and password to be able to access databases.
+All databases will be prefixed with `diarybot-` which makes it easier for you to clean up if you don't like Diary Bot any more. Please edit section `[couchdb]` in the configuration file `diarybot.cfg` to set the database URL, database username and password, and also the database prefix.
 
-Diary Bot comes with several modules, one for each data source. In principle, a module will only be called, if the respective database has been created. As there are initially no Diary Bot databases, all modules will be skipped. To create a modules database, please execute the respective database setup scripts, for instance
+Diary Bot comes with several modules, one for each data source. In principle, a module will only be called, if the respective database has been created and the module has been enabled. The sections below explain you how to create the databases.
 
-```
-python -m diarybot.sources.chat.imessage.setup
-``` 
-
-for the iMessage module.
 
 ### Modules
 
@@ -65,53 +63,58 @@ The source for Diary Bot are implemented as modules. Each module pulls data from
 
 #### iMessage
 
-To enable the iMessage module, please execute:
+To create the iMessage database, please execute:
 
 ```
 python -m diarybot.sources.chat.imessage.setup
 ```
 
-The module requires no further configuration.
+To set up the module, please set `enable = true` in the `[imessage]` section of the configuration file `diarybot.cfg`.
+
 
 #### Moves
 
-To enable the Moves module, please execute:
+To create the Moves database, please execute:
 
 ```
 python -m diarybot.sources.location.moves.setup
 ```
 
-To set up the module, please rename the file `diarybot/location/moves/config.py.template` to `diarybot/location/moves/config.py` and add the information from your Moves app.
+To set up the module, please set `enable = true` in the `[moves]` section of the configuration file `diarybot.cfg` and set variable `access_token` to a valid access token of the Moves API.
+
 
 #### Skype
 
-To enable the Skype module, please execute:
+To create the Skype database, please execute:
 
 ```
 python -m diarybot.sources.chat.skype.setup
 ```
 
-To set up the module, please rename the file `diarybot/chat/skype/config.py.template` to `diarybot/chat/skype/config.py` and add your Skype user name.
+To set up the module, please set `enable = true` in the `[skype]` section of the configuration file `diarybot.cfg` and set variable `skype_username` to your Skype user name.
+
 
 #### Twitter
 
-To enable the Moves module, please execute:
+To create the Moves database, please execute:
 
 ```
 python -m diarybot.sources.social.twitter.setup
 ```
 
-To set up the module, please rename the file `diarybot/social/twitter/config.py.template` to `diarybot/social/twitter/config.py` and add the information from your Twitter app.
+To set up the module, please set `enable = true` in the `[twitter]` section of the configuration file `diarybot.cfg` and set variables `consumer_key`, `consumer_secret`, `access_token`, and `access_token_secret` to valid values for the Twitter API.
+ 
 
 #### Xbox Achievements
 
-To enable the Xbox module, please execute:
+To create the Xbox database, please execute:
 
 ```
 python -m diarybot.sources.life.xbox.setup
 ```
 
-To set up the module, please rename the file `diarybot/life/xbox/config.py.template` to `diarybot/life/xbox/config.py` and add your API key from https://xboxapi.com.
+To set up the module, please set `enable = true` in the `[xbox]` section of the configuration file `diarybot.cfg` and set variable `api_key` to your Xbox API key.
+
 
 ## Run Diary Bot
 

@@ -1,13 +1,12 @@
 import couchdb
 
-from diarybot import dbconfig
 from diarybot.utils.logger import logger
+from diarybot.config import config
 
+couch = couchdb.Server(config.get('couchdb', 'database-url'))
+couch.resource.credentials = (config.get('couchdb', 'database-user'), config.get('couchdb', 'database-password'))
 
-couch = couchdb.Server()
-couch.resource.credentials = (dbconfig.DATABASE_USER, dbconfig.DATABASE_PASS)
-
-diarybot_databases = [couch[db_name] for db_name in couch if db_name.startswith(dbconfig.DATABASE_PREFIX)]
+diarybot_databases = [couch[db_name] for db_name in couch if db_name.startswith(config.get('couchdb', 'database-prefix'))]
 
 logger.debug("performing maintenance for %d Diary Bot databases" % len(diarybot_databases))
 

@@ -1,11 +1,11 @@
 from diarybot.utils.module import Module
 from diarybot.utils.logger import logger
 from diarybot.utils.dbbasic import store
+from diarybot.config import config
 
 import iso8601
 import requests
 from datetime import datetime
-from config import API_KEY
 
 
 class Xbox(Module):
@@ -28,9 +28,15 @@ class Xbox(Module):
     @staticmethod
     def api_call(endpoint):
         base_url = 'https://xboxapi.com'
-        headers = {"X-AUTH": API_KEY}
+        headers = {"X-AUTH": config.get('xbox', 'api_key')}
         url = base_url + endpoint
-        result = requests.get(url, headers=headers).json()
+        result = requests.get(url, headers=headers)
+
+        try:
+            result = result.json()
+        except ValueError:
+            logger.critical("error decoding JSON: %s" % result)
+
         if 'error_message' in result:
             logger.critical(result['error_message'])
         return result
