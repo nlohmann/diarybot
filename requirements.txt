@@ -1,4 +1,6 @@
 CouchDB==0.10
+foursquare==2014.04.23
 iso8601==0.1.10
 requests==2.4.3
 tweepy==2.3.0
+wsgiref==0.1.2
