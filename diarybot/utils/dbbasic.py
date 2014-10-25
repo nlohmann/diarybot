@@ -17,6 +17,8 @@ def store(db, docs):
         s = "added %d of %d entries to database '%s'." % (len(docs) if len(docs) < done else done, len(docs), db.name)
         logger.debug(s)
 
+def store_attatchment(db, key, attatchment, filename, content_type):
+    db.put_attachment(key, attatchment, filename=filename, content_type=content_type)
 
 def get_database(database_name):
     full_database_name = config.get('couchdb', 'database-prefix') + database_name
