@@ -18,6 +18,7 @@ As of now, the code for the first data sources is published. Other sources are a
 | ------------- |---------------| ------|
 | ![iMessages](http://upload.wikimedia.org/wikipedia/commons/2/23/Messages_%28application%29_logo.png) | Chat | [iMessages](http://www.apple.com/de/ios/messages/) together with their attachments (from local database) |
 | ![Moves](https://www.moves-app.com/assets/moves-logo-206x206.png) | Location | [Moves](https://www.moves-app.com) daily storylines with places, routes, and activities. |
+| ![Foursquare](https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-logomark.png) | Location | [Foursquare](https://www.foursquare.com) checkins of visited venues or events. |
 | ![Skype](http://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Skype_logo.svg/200px-Skype_logo.svg.png) | Chat | [Skype](http://www.skype.com) messages (from local database) |
 | ![Twitter](http://upload.wikimedia.org/wikipedia/de/thumb/9/9f/Twitter_bird_logo_2012.svg/200px-Twitter_bird_logo_2012.svg.png) | Social | [Twitter](http://twitter.com) tweets. |
 | ![Xbox](http://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Xbox.svg/200px-Xbox.svg.png) | Life | [Xbox](http://www.xbox.com) live achievements. Data provided by [XboxAPI](https://xboxapi.com). |
@@ -81,6 +82,17 @@ python -m diarybot.sources.location.moves.setup
 ```
 
 To set up the module, please set `enable = true` in the `[moves]` section of the configuration file `diarybot.cfg` and set variable `access_token` to a valid access token of the Moves API.
+
+
+#### Foursquare
+
+To create the Foursquare database, please execute:
+
+```
+python -m diarybot.sources.location.foursquare.setup
+```
+
+To set up the module, please set `enable = true` in the `[foursquare]` section of the configuration file `diarybot.cfg` and set variable `access_token`, `client_id`, `client_secret` and `redirect_uri` to a valid values of the Foursquare API.
 
 
 #### Skype
