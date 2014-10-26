@@ -14,9 +14,10 @@ class Module(object):
 
         # skip this module unless it is enabled in the "diarybot.cfg"
         if not config.getboolean(module_name, 'enable'):
+            logger.debug("module %s not enabled" % module_name)
             raise NotImplementedError
 
         self.database = get_database(module_name)
 
     def __del__(self):
-        logger.debug("closing module %s" % self.name)
+        logger.debug("closing module %s\n" % self.name)
