@@ -170,9 +170,8 @@ class InstagramDataImport(Module):
             # extract attatchmend date from json object
             doc = self.database.get(db_res[1])
             file = requests.get(doc['images']['standard_resolution']['url'])
-            b64 = base64.b64encode(file.content)
             key = {'_id':db_res[1], '_rev':db_res[2]}
-            db.put_attachment(key, b64, filename="standard_resolution.jpg", content_type=file.headers['content-type'])
+            db.put_attachment(key, file.content, filename="standard_resolution.jpg", content_type=file.headers['content-type'])
 
             if doc['caption']:
                 text = doc['caption']['text']
@@ -181,5 +180,4 @@ class InstagramDataImport(Module):
 
             logger.debug('Attached "%s" image' % text)
 
-        #s = "added %d of %d entries to database '%s'." % (len(docs) if len(docs) < done else done, len(docs), db.name)
         logger.debug("import photo is done.")
