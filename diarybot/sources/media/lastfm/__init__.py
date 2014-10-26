@@ -1,1 +1,1 @@
-import dataimport
+from dataimport import LastfmDataImport

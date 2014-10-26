@@ -54,7 +54,7 @@ class InstagramDataImport(Module):
         first_local_image = self._get_first_media()
 
         # check if we have imported all images previews the oldes we have
-        url = self.base_url+"/users/%s/media/recent/?access_token=%s&min_id=%s"%(config.get('instagram','id'),config.get('instagram','access_token'),first_local_image['id'])
+        url = self.base_url+"/users/%s/media/recent/?access_token=%s&max_id=%s"%(config.get('instagram','id'),config.get('instagram','access_token'),first_local_image['id'])
         res = self._api_call(url)
 
         if len(res['data'])>0:
@@ -62,7 +62,7 @@ class InstagramDataImport(Module):
 
         # now import all newer images thince the newest we have
         logger.debug("latest local stored image is from %s" % datetime.datetime.fromtimestamp(int(latest_local_image['created_time'])).isoformat())
-        self._run_fetch({'max_id':latest_local_image['id']})
+        self._run_fetch({'min_id':latest_local_image['id'],'max_timestamp':latest_local_image['created_time']})
 
         return True
 
@@ -142,6 +142,11 @@ class InstagramDataImport(Module):
             # build parameter set to get step by step all data
             res = self._api_call(url)
 
+            # break here if there is nothing to import
+            if len(res['data'])<1:
+                logger.debug("nothing to import.")
+                break
+
             self._store_wattatchment(self.database, res['data'] )
             record_count = record_count + len(res['data'])
             logger.debug("Stored %s of in total %s images in database" % (record_count, (self.meta_online_image_count-self.meta_local_image_count)))
@@ -162,6 +167,11 @@ class InstagramDataImport(Module):
         :param docs: API result
         :return:
         """
+
+        if len(docs)<1:
+            logger.debug("nothing to import.")
+            return False
+
         # store json with main data
         store_results = db.update(docs)
 
@@ -181,3 +191,4 @@ class InstagramDataImport(Module):
             logger.debug('Attached "%s" image' % text)
 
         logger.debug("import photo is done.")
+        return True

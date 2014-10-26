@@ -8,7 +8,7 @@ diarybot.sources.location.foursquare.dataimport.FoursquareDataImport()
 
 diarybot.sources.social.twitter.Twitter()
 
-diarybot.sources.media.lastfm.dataimport.LastfmDataImport()
+diarybot.sources.media.lastfm.LastfmDataImport()
 
 diarybot.sources.life.xbox.Xbox()
 
