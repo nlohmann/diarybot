@@ -3,6 +3,10 @@ from diarybot.utils.dbbasic import get_database
 from diarybot.config import config
 
 class Module(object):
+    """
+    This class is a wrapper for Diary Bot's modules. Its goal is to move any shared functionality here.
+    """
+
     def __init__(self, module_name):
         logger.debug("opening module %s" % module_name)
 

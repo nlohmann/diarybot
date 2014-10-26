@@ -3,13 +3,15 @@ import couchdb
 from diarybot.utils.logger import logger
 from diarybot.config import config
 
+# connect to the CouchDB server
 couch = couchdb.Server(config.get('couchdb', 'database-url'))
 couch.resource.credentials = (config.get('couchdb', 'database-user'), config.get('couchdb', 'database-password'))
 
+# select the databases of Diary Bot
 diarybot_databases = [couch[db_name] for db_name in couch if db_name.startswith(config.get('couchdb', 'database-prefix'))]
-
 logger.debug("performing maintenance for %d Diary Bot databases" % len(diarybot_databases))
 
+# Clean up and compact each database and its design documents
 for db in diarybot_databases:
     logger.debug("cleaning up and compacting database %s" % db.name)
     db.cleanup()
