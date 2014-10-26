@@ -148,7 +148,7 @@ To create the Instagram database, please execute:
 python -m diarybot.sources.social.instagram.setup
 ```
 
-To set up the module, please set `enable = true` in the `[instagram]` section of the configuration file `diarybot.cfg` and set variable `access_token`, `client_id`, `client_secret` and `redirect_uri` to a valid values of the Foursquare API.
+To set up the module, please set `enable = true` in the `[instagram]` section of the configuration file `diarybot.cfg` and set variable `access_token` and `id` to a valid values of the Foursquare API.
 
 
 ## Run Diary Bot
