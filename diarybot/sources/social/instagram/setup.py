@@ -16,6 +16,10 @@ design_document = r'''
        },
        "bydate": {
            "map": "function(doc) {\n    emit(doc.created_time, doc);\n}"
+       },
+       "imagecount": {
+           "map": "function(doc) {\n  emit(null, 1);\n}",
+           "reduce": "function(key,values,reduce){\n\treturn sum(values)\n}"
        }
    }
 }
