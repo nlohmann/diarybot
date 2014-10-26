@@ -23,6 +23,7 @@ As of now, the code for the first data sources is published. Other sources are a
 | ![Xbox](http://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Xbox.svg/200px-Xbox.svg.png) | Life | [Xbox](http://www.xbox.com) live achievements. Data provided by [XboxAPI](https://xboxapi.com). |
 | ![Foursquare](https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-logomark.png) | Location | [Foursquare](https://www.foursquare.com) checkins of visited venues or events. |
 | ![last.fm](http://cdn.last.fm/flatness/badges/lastfm_red.gif) | Media | [last.fm](https://www.lastfm.com) tracks your music you are listening to and suggest you new one. |
+| ![instagram](https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xpa1/t39.2365-6/851582_417171855069447_55288290_n.png) | Social| [instagram](https://www.instagram.com) share images and videos with friends and other peoples. |
 
 
 ## Prerequisites
