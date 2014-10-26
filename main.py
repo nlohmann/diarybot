@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import diarybot
 
 diarybot.sources.chat.skype.Skype()
