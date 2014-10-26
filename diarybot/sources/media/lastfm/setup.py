@@ -11,10 +11,10 @@ design_document = r'''
    "language": "javascript",
    "views": {
        "bydate": {
-           "map": "function(doc) {\n  var d = new Date(doc.createdAt*1000);\n\n  emit(d.getTime() / 1000, doc);\n}"
+           "map": "function(doc) {\n  var d = new Date(doc.date.uts*1000);\n\n  emit(d.getTime() / 1000, doc);\n}"
        },
        "lastid": {
-           "map": "function(doc) {\n  var d = new Date(doc.createdAt*1000);\n\n  emit(d.getTime() / 1000, doc);\n}",
+           "map": "function(doc) {\n  emit(null,parseInt(doc.date.uts));\n}",
            "reduce": "function (key, values, rereduce) {\n    var max = -Infinity;\n    for(var i = 0; i < values.length; i++)\n    {\n        if(typeof values[i] == 'number')\n        {\n            max = Math.max(values[i], max);\n        }\n    }\n    return max;\n}"
        }
    }

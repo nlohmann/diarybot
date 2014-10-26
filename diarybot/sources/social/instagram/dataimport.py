@@ -77,10 +77,9 @@ class InstagramDataImport(Module):
         data = r.json()
 
         # do it in a better way (chicking rate-limit etc)
-        if data.has_key('error'):
-            if data['error'] == 29:
-                logger.debug("minute rate limit almost reached - wait for a minute")
-                time.sleep(60)
+        if r.status_code == 429:
+            logger.debug("hour rate limit reached - wait 60 minutes")
+            exit(1)
 
         return data
 

@@ -50,32 +50,50 @@ class LastfmDataImport(Module):
         :return:
         """
 
-        # +1 to get new checkins, not the same we have already
+        first_local_track = self._get_first_track()
         latest_local_track = self._get_latest_track()
-        latest_local_track_time = int(latest_local_track['date']['uts']) + 1
 
-        logger.debug("latest local stored track is from %s" % datetime.datetime.fromtimestamp(int(latest_local_track['date']['uts'])).isoformat())
+        # check if there are all old tracks imported.
+        # this can happen when the initial import become interrupted
+        logger.debug("first local stored track is from %s" % datetime.datetime.fromtimestamp(int(first_local_track['date']['uts'])).isoformat())
 
         params = {'method':'user.getrecenttracks',
                   'user':config.get('lastfm','username'),
                   'api_key':config.get('lastfm','api_key'),
-                  'format':'json',
-                  'limit':200,
-                  'from':latest_local_track_time}
+                  'format':'json'}
 
-        # check how many entries in total available
-        short_params = params.copy()
-        short_params['limit']=1
-
-        # the result looks different, depending on whether one or more tracks are returned.
-        # handle this!
-        data = self.api_call(short_params)
+        opt_params = {'to':int(first_local_track['date']['uts']),
+                      'limit':1}
+        data = self.api_call(params,opt_params)
         if data['recenttracks'].has_key('@attr'):
-            logger.debug("%s tracks have to be imported" % (data['recenttracks']['@attr']['total']))
+            track_count = int(data['recenttracks']['@attr']['total'])
         else:
-            logger.debug("%s tracks have to be imported" % (data['recenttracks']['total']))
+            track_count = int(data['recenttracks']['total'])
 
-        self._run_fetch_store(params)
+        if track_count>0:
+            logger.debug("%s tracks are older as the oldest local track. they have to be imported" % track_count)
+            self._run_fetch_store(params,opt_params)
+        else:
+            logger.debug("all older tracks are imported")
+
+
+        logger.debug("latest local stored track is from %s" % datetime.datetime.fromtimestamp(int(latest_local_track['date']['uts'])).isoformat())
+
+
+        # check if newer tracks have to be imported.
+        opt_params = {'from':int(latest_local_track['date']['uts']),
+                      'limit':1}
+        data = self.api_call(params,opt_params)
+        if data['recenttracks'].has_key('@attr'):
+            track_count = int(data['recenttracks']['@attr']['total'])
+        else:
+            track_count = int(data['recenttracks']['total'])
+
+        if track_count>0:
+            logger.debug("%s tracks are newer as the latest local track. they have to be imported." % track_count)
+            self._run_fetch_store(params,opt_params)
+        else:
+            logger.debug("all newer tracks are imported")
 
         return True
 
@@ -107,7 +125,17 @@ class LastfmDataImport(Module):
             return res['value']
         return None
 
-    def _run_fetch_store(self,param):
+    def _get_first_track(self):
+        """
+        returns latest track
+        return None if no checkin is locally stored
+        :return:
+        """
+        for res in self.database.view('_design/diarybot/_view/bydate', limit=1, descending=False):
+            return res['value']
+        return None
+
+    def _run_fetch_store(self,param,opt_params):
         """
         fetches available tracks from lastfm page by page and stores inside the database
         :param params: parameter to narrow the API result
@@ -119,16 +147,20 @@ class LastfmDataImport(Module):
         while True:
 
             # build parameter set to get step by step all data
-            opt_params = {'extended':1,
-                          'page':next_page
-                          }
+            opt_params['extended'] = 1
+            opt_params['page'] = next_page
+            opt_params['limit'] = 200
 
             data = self.api_call(param,opt_params)
 
-            if data['recenttracks'].has_key('@attr'):
-                attr = data['recenttracks']['@attr']
+            if data.has_key('recenttracks'):
+                if data['recenttracks'].has_key('@attr'):
+                    attr = data['recenttracks']['@attr']
+                else:
+                    attr = data['recenttracks']
             else:
-                attr = data['recenttracks']
+                logger.debug("Finished import to early?")
+                break
 
             # stop import process if we do not have any import!
             if int(attr['total']) == 0:
