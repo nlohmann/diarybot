@@ -20,4 +20,4 @@ class Module(object):
         self.database = get_database(module_name)
 
     def __del__(self):
-        logger.debug("closing module %s\n" % self.name)
+        logger.debug("closing module %s" % self.name)

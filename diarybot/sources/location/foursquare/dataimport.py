@@ -3,8 +3,9 @@ import datetime
 from diarybot.utils.dbbasic import store
 from diarybot.utils.logger import logger
 from diarybot.utils.module import Module
-from foursquare import Foursquare
 from diarybot.config import config
+
+from foursquare import Foursquare
 
 
 class FoursquareDataImport(Module):
@@ -25,14 +26,6 @@ class FoursquareDataImport(Module):
 
         if not self.initial_import():
             self.regular_import()
-
-
-            # parts are needed to get an API key manually
-            # auth_uri = client.oauth.auth_url()
-            #print auth_uri
-
-            #access_token = client.oauth.get_token('GA5VKWJYXPK4DLA0NGHGKXB5IMHYGKUUUO0WWQ3UYDGDYCJJ')
-            #print access_token
 
 
     def initial_import(self):
