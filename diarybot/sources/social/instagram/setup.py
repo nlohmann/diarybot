@@ -10,12 +10,12 @@ design_document = r'''
    "_id": "_design/diarybot",
    "language": "javascript",
    "views": {
-       "bydate": {
-           "map": "function(doc) {\n    d = new Date(doc.created_at).getTime() / 1000;  \n    emit(d, doc);\n}\n"
-       },
        "lastid": {
            "map": "function(doc) {\n  emit(null, doc.id);\n}",
-           "reduce": "function (key, values, rereduce) {\n    var max = -Infinity;\n    for(var i = 0; i < values.length; i++)\n    {\n        if(typeof values[i] == 'number')\n        {\n            max = Math.max(values[i], max);\n        }\n    }\n    return max;\n}"
+           "reduce": "function (key, values, rereduce) {\n    var max = -Infinity;\n    var smax = \"\";\n    for(var i = 0; i < values.length; i++)\n    {\n\tnmax = parseInt(values[i].split('_')[0])\n\tmax = Math.max(nmax, max);\n\tif(nmax==max){\n\t\tsmax = values[i];\n\t}\n    }\n    return smax;\n}"
+       },
+       "bydate": {
+           "map": "function(doc) {\n    emit(doc.created_time, doc);\n}"
        }
    }
 }
