@@ -34,6 +34,8 @@ def store(database, docs):
         s = "added %d of %d entries to database '%s'." % (len(docs) if len(docs) < done else done, len(docs), database.name)
         logger.debug(s)
 
+def store_attatchment(db, key, attatchment, filename, content_type):
+    db.put_attachment(key, attatchment, filename=filename, content_type=content_type)
 
 def get_database(module_name):
     """
