@@ -9,9 +9,8 @@ diarybot.sources.location.moves.Moves()
 diarybot.sources.location.foursquare.dataimport.FoursquareDataImport()
 
 diarybot.sources.social.twitter.Twitter()
+diarybot.sources.social.instagram.InstagramDataImport()
 
 diarybot.sources.media.lastfm.LastfmDataImport()
 
 diarybot.sources.life.xbox.Xbox()
-
-diarybot.sources.social.instagram.InstagramDataImport()
