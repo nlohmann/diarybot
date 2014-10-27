@@ -18,10 +18,13 @@ As of now, the code for the first data sources is published. Other sources are a
 | ------------- |---------------| ------|
 | ![iMessages](http://upload.wikimedia.org/wikipedia/commons/2/23/Messages_%28application%29_logo.png) | Chat | [iMessages](http://www.apple.com/de/ios/messages/) together with their attachments (from local database) |
 | ![Moves](https://www.moves-app.com/assets/moves-logo-206x206.png) | Location | [Moves](https://www.moves-app.com) daily storylines with places, routes, and activities. |
-| ![Foursquare](https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-logomark.png) | Location | [Foursquare](https://www.foursquare.com) checkins of visited venues or events. |
 | ![Skype](http://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Skype_logo.svg/200px-Skype_logo.svg.png) | Chat | [Skype](http://www.skype.com) messages (from local database) |
 | ![Twitter](http://upload.wikimedia.org/wikipedia/de/thumb/9/9f/Twitter_bird_logo_2012.svg/200px-Twitter_bird_logo_2012.svg.png) | Social | [Twitter](http://twitter.com) tweets. |
 | ![Xbox](http://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Xbox.svg/200px-Xbox.svg.png) | Life | [Xbox](http://www.xbox.com) live achievements. Data provided by [XboxAPI](https://xboxapi.com). |
+| ![Foursquare](https://playfoursquare.s3.amazonaws.com/press/2014/foursquare-logomark.png) | Location | [Foursquare](https://www.foursquare.com) checkins of visited venues or events. |
+| ![last.fm](http://cdn.last.fm/flatness/badges/lastfm_red.gif) | Media | [last.fm](https://www.lastfm.com) tracks your music you are listening to and suggest you new one. |
+| ![instagram](https://fbcdn-dragon-a.akamaihd.net/hphotos-ak-xpa1/t39.2365-6/851582_417171855069447_55288290_n.png) | Social| [instagram](https://www.instagram.com) share images and videos with friends and other peoples. |
+
 
 ## Prerequisites
 
@@ -126,6 +129,27 @@ python -m diarybot.sources.life.xbox.setup
 ```
 
 To set up the module, please set `enable = true` in the `[xbox]` section of the configuration file `diarybot.cfg` and set variable `api_key` to your Xbox API key.
+
+#### last.fm
+
+To create the last.fm database, please execute:
+
+```
+python -m diarybot.sources.media.lastfm.setup
+```
+
+To set up the module, please set `enable = true` in the `[instagram]` section of the configuration file `diarybot.cfg` and set variable `access_token`, `client_id`, `client_secret` and `redirect_uri` to a valid values of the Foursquare API.
+
+
+#### Instagram
+
+To create the Instagram database, please execute:
+
+```
+python -m diarybot.sources.social.instagram.setup
+```
+
+To set up the module, please set `enable = true` in the `[instagram]` section of the configuration file `diarybot.cfg` and set variable `access_token` and `id` to a valid values of the Foursquare API.
 
 
 ## Run Diary Bot
