@@ -78,13 +78,11 @@ To set up the module, please set `enable = true` in the `[imessage]` section of 
 
 #### Moves
 
-To create the Moves database, please execute:
+To set up the Moves module, please execute:
 
 ```
 python -m diarybot.sources.location.moves.setup
 ```
-
-To set up the module, please set `enable = true` in the `[moves]` section of the configuration file `diarybot.cfg` and set variable `access_token` to a valid access token of the Moves API.
 
 
 #### Foursquare

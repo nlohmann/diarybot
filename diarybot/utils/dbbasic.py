@@ -77,5 +77,7 @@ def create_database(module_name, design_document):
         db = couch.create(full_database_name)
         logger.debug('created database %s' % full_database_name)
 
-    # store the passed design document
+    # replace the passed design document
+    if '_design/diarybot' in db:
+        del db['_design/diarybot']
     db['_design/diarybot'] = json.loads(design_document)
