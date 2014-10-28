@@ -21,7 +21,7 @@ def store(database, docs):
         """
         return (document_list[pos:pos + chunk_size] for pos in xrange(0, len(document_list), chunk_size))
 
-    chunksize = 10000
+    chunksize = 1000
     done = 0
 
     # instead of storing each document individually, store whole chunks to limit the number of HTTP calls to CouchDB
