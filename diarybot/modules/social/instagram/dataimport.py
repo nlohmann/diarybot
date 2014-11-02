@@ -52,8 +52,8 @@ class InstagramDataImport(Module):
         first_local_image = self._get_first_media()
 
         # check if we have imported all images previews the oldes we have
-        url = self.base_url + "/users/%s/media/recent/?access_token=%s&max_id=%s" % (
-            config.get('instagram', 'id'), config.get('instagram', 'access_token'), first_local_image['id']
+        url = self.base_url + "/users/self/media/recent/?access_token=%s&max_id=%s" % (
+            config.get('instagram', 'access_token'), first_local_image['id']
         )
         res = self._api_call(url)
 
@@ -120,8 +120,7 @@ class InstagramDataImport(Module):
         :return:
         """
         # check how many entries in total available
-        url = self.base_url + "/users/%s?access_token=%s" % (
-            config.get('instagram', 'id'), config.get('instagram', 'access_token'))
+        url = self.base_url + "/users/self?access_token=%s" % config.get('instagram', 'access_token')
         res = self._api_call(url)
         return int(res['data']['counts']['media'])
 
@@ -136,8 +135,7 @@ class InstagramDataImport(Module):
 
         # at the first iteration we have to build the url by our self
         # append additional parameters
-        url = self.base_url + "/users/%s/media/recent/?access_token=%s" % (
-            config.get('instagram', 'id'), config.get('instagram', 'access_token')) + '&' + '&'.join(
+        url = self.base_url + "/users/self/media/recent/?access_token=%s" % config.get('instagram', 'access_token') + '&' + '&'.join(
             ["%s=%s" % (k, v) for k, v in params.iteritems()])
 
         while True:
