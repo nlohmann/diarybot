@@ -2,6 +2,7 @@ from diarybot.utils.logger import logger
 from diarybot.utils.dbbasic import get_database
 from diarybot.config import config
 
+
 class Module(object):
     """
     This class is a wrapper for Diary Bot's modules. Its goal is to move any shared functionality here.

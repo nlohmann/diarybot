@@ -2,15 +2,15 @@
 
 import diarybot
 
-diarybot.sources.chat.skype.Skype()
-diarybot.sources.chat.imessage.Imessage()
+diarybot.modules.chat.skype.Skype()
+diarybot.modules.chat.imessage.Imessage()
 
-diarybot.sources.location.moves.Moves()
-diarybot.sources.location.foursquare.dataimport.FoursquareDataImport()
+diarybot.modules.location.moves.Moves()
+diarybot.modules.location.foursquare.dataimport.FoursquareDataImport()
 
-diarybot.sources.social.twitter.Twitter()
-diarybot.sources.social.instagram.InstagramDataImport()
+diarybot.modules.social.twitter.Twitter()
+diarybot.modules.social.instagram.InstagramDataImport()
 
-diarybot.sources.media.lastfm.LastfmDataImport()
+diarybot.modules.media.lastfm.LastfmDataImport()
 
-diarybot.sources.life.xbox.Xbox()
+diarybot.modules.life.xbox.Xbox()

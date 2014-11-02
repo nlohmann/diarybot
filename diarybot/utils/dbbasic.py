@@ -5,6 +5,7 @@ from diarybot.utils.logger import logger
 
 import json
 
+
 def store(database, docs):
     """
     Store documents in a given database; store the documents in chunks to increase performance.
@@ -37,6 +38,7 @@ def store(database, docs):
 def store_attatchment(db, key, attatchment, filename, content_type):
     db.put_attachment(key, attatchment, filename=filename, content_type=content_type)
 
+
 def get_database(module_name):
     """
     Get a module's database from CouchDB.
@@ -54,6 +56,7 @@ def get_database(module_name):
     db = couch[full_database_name]
     logger.debug('opening database %s' % full_database_name)
     return db
+
 
 def create_database(module_name, design_document):
     """

@@ -115,17 +115,14 @@ if __name__ == '__main__':
     data = docprompt(source=screen_introduction)
     data.prompt()
 
-
     # open Moves Developer Center
     webbrowser.open_new("https://dev.moves-app.com/apps")
-
 
     # show first dialoge and retrieve client id and client secret
     data = docprompt(source=screen_createapp)
     data.prompt()
     client_id = data.client_id
     client_secret = data.client_secret
-
 
     # open authorization website
     url = "https://api.moves-app.com/oauth/v1/authorize" 
@@ -138,12 +135,10 @@ if __name__ == '__main__':
     code_url = url + '?' + urllib.urlencode(data)
     webbrowser.open(code_url)
 
-
     # show second dialoge and retrieve authorization code
     data = docprompt(source=screen2.format(URL=code_url))
     data.prompt()
     code = data.code
-
 
     # get access token
     url = "https://api.moves-app.com/oauth/v1/access_token"
@@ -157,7 +152,6 @@ if __name__ == '__main__':
     r = requests.post(url + '?' + urllib.urlencode(data))
     access_token = r.json()['access_token']
 
-
     # save stuff to config
     if not config.has_section(module_name):
         config.add_section(module_name)
@@ -167,7 +161,6 @@ if __name__ == '__main__':
     config.write(open(config_filename, "w"))
 
     logger.debug("wrote access token to configuration file '%s'" % config_filename)
-
 
     # create database if required
     logger.debug("creating database for module %s" % module_name)

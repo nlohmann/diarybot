@@ -1,10 +1,9 @@
-import datetime
-
 from diarybot.utils.dbbasic import store
 from diarybot.utils.logger import logger
 from diarybot.utils.module import Module
 from diarybot.config import config
 
+import datetime
 from foursquare import Foursquare
 
 
@@ -26,7 +25,6 @@ class FoursquareDataImport(Module):
 
         if not self.initial_import():
             self.regular_import()
-
 
     def initial_import(self):
         """
@@ -61,7 +59,7 @@ class FoursquareDataImport(Module):
                 latest_local_checkin['createdAt']).isoformat())
 
             res = self.client.users.checkins(
-                params={'limit': 250, 'sort': 'oldestfirst', 'afterTimestamp': (latest_local_checkin_time)})
+                params={'limit': 250, 'sort': 'oldestfirst', 'afterTimestamp': latest_local_checkin_time})
 
             if len(res['checkins']['items']) == 0:
                 logger.debug("no further checkins to import - finishing")
@@ -74,7 +72,6 @@ class FoursquareDataImport(Module):
             store(self.database, res['checkins']['items'])
 
         return True
-
 
     def _get_latest_checkin(self):
         """

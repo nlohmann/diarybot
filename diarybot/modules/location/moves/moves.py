@@ -26,7 +26,8 @@ class Moves(Module):
         r = requests.get(base_url + endpoint, params=data)
 
         if r.status_code == 429:
-            logger.debug("rate limit exceeded, please try again in %s minutes", r.headers['x-ratelimit-minuteremaining'])
+            logger.debug("rate limit exceeded, please try again in %s minutes",
+                         r.headers['x-ratelimit-minuteremaining'])
 
         # check rate limit
         ratelimit = int(r.headers['x-ratelimit-minuteremaining'])
@@ -53,7 +54,8 @@ class Moves(Module):
 
     def get_last_id(self):
         for x in self.database.view('_design/diarybot/_view/lastid'):
-            logger.debug("most recent data found is from %s - incremental import" % datetime.datetime.fromtimestamp(x['value']).isoformat())
+            logger.debug("most recent data found is from %s - incremental import" % datetime.datetime.fromtimestamp(
+                x['value']).isoformat())
             # add a day, because we can only get the data from up to yesterday
             return datetime.date.fromtimestamp(x['value']) + datetime.timedelta(days=1)
 

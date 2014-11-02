@@ -1,14 +1,12 @@
-import base64
-import datetime
-import time
-
 from diarybot.utils.logger import logger
 from diarybot.utils.module import Module
 from diarybot.config import config
+
 import requests
+import datetime
+
 
 class InstagramDataImport(Module):
-    
     client = None
     meta_local_image_count = 0
     meta_online_image_count = 0
@@ -54,19 +52,22 @@ class InstagramDataImport(Module):
         first_local_image = self._get_first_media()
 
         # check if we have imported all images previews the oldes we have
-        url = self.base_url+"/users/%s/media/recent/?access_token=%s&max_id=%s"%(config.get('instagram','id'),config.get('instagram','access_token'),first_local_image['id'])
+        url = self.base_url + "/users/%s/media/recent/?access_token=%s&max_id=%s" % (
+            config.get('instagram', 'id'), config.get('instagram', 'access_token'), first_local_image['id']
+        )
         res = self._api_call(url)
 
-        if len(res['data'])>0:
-            self._run_fetch({'min_id':first_local_image['id']})
+        if len(res['data']) > 0:
+            self._run_fetch({'min_id': first_local_image['id']})
 
         # now import all newer images thince the newest we have
-        logger.debug("latest local stored image is from %s" % datetime.datetime.fromtimestamp(int(latest_local_image['created_time'])).isoformat())
-        self._run_fetch({'min_id':latest_local_image['id'],'max_timestamp':latest_local_image['created_time']})
+        logger.debug("latest local stored image is from %s" % datetime.datetime.fromtimestamp(
+            int(latest_local_image['created_time'])).isoformat())
+        self._run_fetch({'min_id': latest_local_image['id'], 'max_timestamp': latest_local_image['created_time']})
 
         return True
 
-    def _api_call(self,url):
+    def _api_call(self, url):
         """
         handles the API calls and errors
         :param url: full url to API endpoint
@@ -109,7 +110,7 @@ class InstagramDataImport(Module):
         :return:
         """
         t = self.database.view('_design/diarybot/_view/imagecount', limit=1, reduce=True)
-        if len(t.rows)>0:
+        if len(t.rows) > 0:
             return t.rows[0]['value']
         return 0
 
@@ -119,11 +120,12 @@ class InstagramDataImport(Module):
         :return:
         """
         # check how many entries in total available
-        url = self.base_url+"/users/%s?access_token=%s"%(config.get('instagram','id'),config.get('instagram','access_token'))
+        url = self.base_url + "/users/%s?access_token=%s" % (
+            config.get('instagram', 'id'), config.get('instagram', 'access_token'))
         res = self._api_call(url)
         return int(res['data']['counts']['media'])
 
-    def _run_fetch(self,params={}):
+    def _run_fetch(self, params={}):
         """
         fetches available media from instagram page by page
         :param params: parameter to narrow the API result
@@ -134,7 +136,9 @@ class InstagramDataImport(Module):
 
         # at the first iteration we have to build the url by our self
         # append additional parameters
-        url = self.base_url+"/users/%s/media/recent/?access_token=%s" % (config.get('instagram','id'),config.get('instagram','access_token'))+'&'+'&'.join(["%s=%s"%(k,v) for k,v in params.iteritems()])
+        url = self.base_url + "/users/%s/media/recent/?access_token=%s" % (
+            config.get('instagram', 'id'), config.get('instagram', 'access_token')) + '&' + '&'.join(
+            ["%s=%s" % (k, v) for k, v in params.iteritems()])
 
         while True:
 
@@ -142,16 +146,17 @@ class InstagramDataImport(Module):
             res = self._api_call(url)
 
             # break here if there is nothing to import
-            if len(res['data'])<1:
+            if len(res['data']) < 1:
                 logger.debug("nothing to import.")
                 break
 
-            self._store_wattatchment(self.database, res['data'] )
-            record_count = record_count + len(res['data'])
-            logger.debug("Stored %s of in total %s images in database" % (record_count, (self.meta_online_image_count-self.meta_local_image_count)))
+            self._store_wattatchment(self.database, res['data'])
+            record_count += len(res['data'])
+            logger.debug("Stored %s of in total %s images in database" % (
+                record_count, (self.meta_online_image_count - self.meta_local_image_count)))
 
             # get next url from api - if we are not at the end
-            if res['pagination'].has_key('next_url'):
+            if 'next_url' in res['pagination']:
                 url = res['pagination']['next_url']
             else:
                 logger.debug("All images fetched.")
@@ -167,20 +172,21 @@ class InstagramDataImport(Module):
         :return:
         """
 
-        if len(docs)<1:
+        if len(docs) < 1:
             logger.debug("nothing to import.")
             return False
 
         # store json with main data
         store_results = db.update(docs)
 
-        # attatch binary image to it database record
+        # attach binary image to it database record
         for db_res in store_results:
-            # extract attatchmend date from json object
+            # extract attachment date from json object
             doc = self.database.get(db_res[1])
-            file = requests.get(doc['images']['standard_resolution']['url'])
-            key = {'_id':db_res[1], '_rev':db_res[2]}
-            db.put_attachment(key, file.content, filename="standard_resolution.jpg", content_type=file.headers['content-type'])
+            image_file = requests.get(doc['images']['standard_resolution']['url'])
+            key = {'_id': db_res[1], '_rev': db_res[2]}
+            db.put_attachment(key, image_file.content, filename="standard_resolution.jpg",
+                              content_type=image_file.headers['content-type'])
 
             if doc['caption']:
                 text = doc['caption']['text']

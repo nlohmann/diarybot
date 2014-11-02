@@ -30,13 +30,13 @@ class LastfmDataImport(Module):
         if not self._get_latest_track():
             logger.debug("no local stored data found - inital import needed")
 
-            params = {'method':'user.getrecenttracks',
-                      'user':config.get('lastfm','username'),
-                      'api_key':config.get('lastfm','api_key'),
-                      'format':'json'}
+            params = {'method': 'user.getrecenttracks',
+                      'user': config.get('lastfm', 'username'),
+                      'api_key': config.get('lastfm', 'api_key'),
+                      'format': 'json'}
 
             # check how many entries in total available
-            data = self.api_call(params,{'limit':1})
+            data = self.api_call(params, {'limit': 1})
             logger.debug("%s tracks have to be imported" % (data['recenttracks']['@attr']['total']))
 
             self._run_fetch_store(params)
@@ -55,60 +55,61 @@ class LastfmDataImport(Module):
 
         # check if there are all old tracks imported.
         # this can happen when the initial import become interrupted
-        logger.debug("first local stored track is from %s" % datetime.datetime.fromtimestamp(int(first_local_track['date']['uts'])).isoformat())
+        logger.debug("first local stored track is from %s" % datetime.datetime.fromtimestamp(
+            int(first_local_track['date']['uts'])).isoformat()
+        )
 
-        params = {'method':'user.getrecenttracks',
-                  'user':config.get('lastfm','username'),
-                  'api_key':config.get('lastfm','api_key'),
-                  'format':'json'}
+        params = {'method': 'user.getrecenttracks',
+                  'user': config.get('lastfm', 'username'),
+                  'api_key': config.get('lastfm', 'api_key'),
+                  'format': 'json'}
 
-        opt_params = {'to':int(first_local_track['date']['uts']),
-                      'limit':1}
-        data = self.api_call(params,opt_params)
-        if data['recenttracks'].has_key('@attr'):
+        opt_params = {'to': int(first_local_track['date']['uts']),
+                      'limit': 1}
+        data = self.api_call(params, opt_params)
+        if '@attr' in data['recenttracks']:
             track_count = int(data['recenttracks']['@attr']['total'])
         else:
             track_count = int(data['recenttracks']['total'])
 
-        if track_count>0:
+        if track_count > 0:
             logger.debug("%s tracks are older as the oldest local track. they have to be imported" % track_count)
-            self._run_fetch_store(params,opt_params)
+            self._run_fetch_store(params, opt_params)
         else:
             logger.debug("all older tracks are imported")
 
-
-        logger.debug("latest local stored track is from %s" % datetime.datetime.fromtimestamp(int(latest_local_track['date']['uts'])).isoformat())
-
+        logger.debug("latest local stored track is from %s" % datetime.datetime.fromtimestamp(
+            int(latest_local_track['date']['uts'])).isoformat())
 
         # check if newer tracks have to be imported.
-        opt_params = {'from':int(latest_local_track['date']['uts']),
-                      'limit':1}
-        data = self.api_call(params,opt_params)
-        if data['recenttracks'].has_key('@attr'):
+        opt_params = {'from': int(latest_local_track['date']['uts']),
+                      'limit': 1}
+        data = self.api_call(params, opt_params)
+        if '@attr' in data['recenttracks']:
             track_count = int(data['recenttracks']['@attr']['total'])
         else:
             track_count = int(data['recenttracks']['total'])
 
-        if track_count>0:
+        if track_count > 0:
             logger.debug("%s tracks are newer as the latest local track. they have to be imported." % track_count)
-            self._run_fetch_store(params,opt_params)
+            self._run_fetch_store(params, opt_params)
         else:
             logger.debug("all newer tracks are imported")
 
         return True
 
-    def api_call(self, min_params,opt_params={}):
+    def api_call(self, min_params, opt_params={}):
         """
         handles the API calls and errors
         :param url: full url to API endpoint
         :return: json-data
         """
 
-        r = requests.get(self.base_url, params=dict(min_params.items()+opt_params.items()))
+        r = requests.get(self.base_url, params=dict(min_params.items() + opt_params.items()))
         data = r.json()
 
         # do it in a better way (chicking rate-limit etc)
-        if data.has_key('error'):
+        if 'error' in data:
             if data['error'] == 29:
                 logger.debug("minute rate limit almost reached - wait for a minute")
                 time.sleep(60)
@@ -135,14 +136,14 @@ class LastfmDataImport(Module):
             return res['value']
         return None
 
-    def _run_fetch_store(self,param,opt_params):
+    def _run_fetch_store(self, param, opt_params):
         """
         fetches available tracks from lastfm page by page and stores inside the database
         :param params: parameter to narrow the API result
         :return: True
         """
 
-        next_page=1
+        next_page = 1
 
         while True:
 
@@ -151,10 +152,10 @@ class LastfmDataImport(Module):
             opt_params['page'] = next_page
             opt_params['limit'] = 200
 
-            data = self.api_call(param,opt_params)
+            data = self.api_call(param, opt_params)
 
-            if data.has_key('recenttracks'):
-                if data['recenttracks'].has_key('@attr'):
+            if 'recenttracks' in data:
+                if '@attr' in data['recenttracks']:
                     attr = data['recenttracks']['@attr']
                 else:
                     attr = data['recenttracks']
@@ -166,19 +167,18 @@ class LastfmDataImport(Module):
             if int(attr['total']) == 0:
                 break
 
-
             # when we get a single track it is not a list so wie have fix this manually
             tracks = data['recenttracks']['track']
-            if not isinstance(tracks,list):
+            if not isinstance(tracks, list):
                 tracks = list(data['recenttracks']['track'])
 
             store(self.database, tracks)
-            logger.debug("Stored page %s with %s tracks" % (attr['page'],len(data['recenttracks']['track'])))
+            logger.debug("Stored page %s with %s tracks" % (attr['page'], len(data['recenttracks']['track'])))
 
             # calculate next iteration
             cur_page = int(attr['page'])
-            if cur_page<int(attr['totalPages']):
-                next_page = cur_page+1
+            if cur_page < int(attr['totalPages']):
+                next_page = cur_page + 1
             else:
                 logger.debug("All tracks fetched.")
                 break
