@@ -70,7 +70,7 @@ The source for Diary Bot are implemented as modules. Each module pulls data from
 To create the iMessage database, please execute:
 
 ```
-python -m diarybot.sources.chat.imessage.setup
+python -m diarybot.modules.chat.imessage.setup
 ```
 
 To set up the module, please set `enable = true` in the `[imessage]` section of the configuration file `diarybot.cfg`.
@@ -81,7 +81,7 @@ To set up the module, please set `enable = true` in the `[imessage]` section of 
 To set up the Moves module, please execute:
 
 ```
-python -m diarybot.sources.location.moves.setup
+python -m diarybot.modules.location.moves.setup
 ```
 
 
@@ -90,7 +90,7 @@ python -m diarybot.sources.location.moves.setup
 To create the Foursquare database, please execute:
 
 ```
-python -m diarybot.sources.location.foursquare.setup
+python -m diarybot.modules.location.foursquare.setup
 ```
 
 To set up the module, please set `enable = true` in the `[foursquare]` section of the configuration file `diarybot.cfg` and set variable `access_token`, `client_id`, `client_secret` and `redirect_uri` to a valid values of the Foursquare API.
@@ -101,7 +101,7 @@ To set up the module, please set `enable = true` in the `[foursquare]` section o
 To create the Skype database, please execute:
 
 ```
-python -m diarybot.sources.chat.skype.setup
+python -m diarybot.modules.chat.skype.setup
 ```
 
 To set up the module, please set `enable = true` in the `[skype]` section of the configuration file `diarybot.cfg` and set variable `skype_username` to your Skype user name.
@@ -112,7 +112,7 @@ To set up the module, please set `enable = true` in the `[skype]` section of the
 To create the Moves database, please execute:
 
 ```
-python -m diarybot.sources.social.twitter.setup
+python -m diarybot.modules.social.twitter.setup
 ```
 
 To set up the module, please set `enable = true` in the `[twitter]` section of the configuration file `diarybot.cfg` and set variables `consumer_key`, `consumer_secret`, `access_token`, and `access_token_secret` to valid values for the Twitter API.
@@ -123,7 +123,7 @@ To set up the module, please set `enable = true` in the `[twitter]` section of t
 To create the Xbox database, please execute:
 
 ```
-python -m diarybot.sources.life.xbox.setup
+python -m diarybot.modules.life.xbox.setup
 ```
 
 To set up the module, please set `enable = true` in the `[xbox]` section of the configuration file `diarybot.cfg` and set variable `api_key` to your Xbox API key.
@@ -133,7 +133,7 @@ To set up the module, please set `enable = true` in the `[xbox]` section of the 
 To create the last.fm database, please execute:
 
 ```
-python -m diarybot.sources.media.lastfm.setup
+python -m diarybot.modules.media.lastfm.setup
 ```
 
 To set up the module, please set `enable = true` in the `[instagram]` section of the configuration file `diarybot.cfg` and set variable `access_token`, `client_id`, `client_secret` and `redirect_uri` to a valid values of the Foursquare API.
@@ -144,7 +144,7 @@ To set up the module, please set `enable = true` in the `[instagram]` section of
 To create the Instagram database, please execute:
 
 ```
-python -m diarybot.sources.social.instagram.setup
+python -m diarybot.modules.social.instagram.setup
 ```
 
 To set up the module, please set `enable = true` in the `[instagram]` section of the configuration file `diarybot.cfg` and set variable `access_token` and `id` to a valid values of the Foursquare API.
