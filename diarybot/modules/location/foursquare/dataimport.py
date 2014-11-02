@@ -17,11 +17,7 @@ class FoursquareDataImport(Module):
         except:
             return
 
-        self.client = Foursquare(client_id=config.get('foursquare', 'client_id'),
-                                 client_secret=config.get('foursquare', 'client_secret'),
-                                 redirect_uri=config.get('foursquare', 'redirect_uri'))
-
-        self.client.set_access_token(config.get('foursquare', 'access_token'))
+        self.client = Foursquare(access_token=config.get('foursquare', 'access_token'))
 
         if not self.initial_import():
             self.regular_import()
