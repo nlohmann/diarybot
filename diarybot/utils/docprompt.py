@@ -163,7 +163,7 @@ class docprompt(object):
             question = '\n> '+each['question']
             vname = each['vname']
             secure = getattr(self, vname+'_secure')
-            if secure == None:
+            if secure is None:
                 src_copy = re.sub(self.replace_rule,'\n'+question+'\n\n', src_copy, count=1)
             else:
                 src_copy = re.sub(self.replace_rule, '\n'+question, src_copy, count=1)
@@ -196,7 +196,7 @@ class docprompt(object):
                 # 2. when user presses ENTER but default is provided
                 # 3. when user enters her own value but not among the choices
                 # 4. finally, when user value is one of the choices, EXIT
-                if vname_secure == True:
+                if vname_secure:
                     user_ans = getpass(self.display_text[memor_start_pos:end+1] +' ' \
                             or vname_secure.title() +': ')
                     setattr(self, vname, user_ans)

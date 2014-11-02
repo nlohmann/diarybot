@@ -54,9 +54,6 @@ class Xbox(Module):
             achievements = self.api_call('/v2/{xuid}/achievements/{titleId}'.format(xuid=self.user_id, titleId=title_id))
 
             for achievement in achievements:
-                achieved = False
-                date = None
-
                 if 'unlockedOnline' in achievement:
                     achieved = achievement['unlockedOnline']
                     date = datetime.strptime(achievement['timeUnlocked'], "%Y-%m-%d %H:%M:%S")
